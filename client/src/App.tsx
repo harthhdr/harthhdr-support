@@ -5,31 +5,62 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import Dashboard from "./pages/admin/Dashboard";
+import Complaints from "./pages/admin/Complaints";
+import Pages from "./pages/admin/Pages";
+import Settings from "./pages/admin/Settings";
+import AdminLayout from "./components/AdminLayout";
+import { trpc } from "./lib/trpc";
+
+function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
+  const { data: user, isLoading } = trpc.auth.me.useQuery();
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    window.location.href = "/";
+    return null;
+  }
+
+  return (
+    <AdminLayout>
+      <Component />
+    </AdminLayout>
+  );
+}
 
 function Router() {
-  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
+      <Route path="/" component={Home} />
+      <Route path="/admin">
+        {() => <ProtectedRoute component={Dashboard} />}
+      </Route>
+      <Route path="/admin/complaints">
+        {() => <ProtectedRoute component={Complaints} />}
+      </Route>
+      <Route path="/admin/pages">
+        {() => <ProtectedRoute component={Pages} />}
+      </Route>
+      <Route path="/admin/settings">
+        {() => <ProtectedRoute component={Settings} />}
+      </Route>
+      <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
   );
 }
 
-// NOTE: About Theme
-// - First choose a default theme according to your design style (dark or light bg), than change color palette in index.css
-//   to keep consistent foreground/background color across components
-// - If you want to make theme switchable, pass `switchable` ThemeProvider and use `useTheme` hook
-
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="light"
-        // switchable
-      >
+      <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
           <Router />
@@ -40,3 +71,4 @@ function App() {
 }
 
 export default App;
+
