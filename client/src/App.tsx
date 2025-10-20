@@ -5,6 +5,7 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import Login from "./pages/Login";
 import Dashboard from "./pages/admin/Dashboard";
 import Complaints from "./pages/admin/Complaints";
 import Pages from "./pages/admin/Pages";
@@ -24,7 +25,7 @@ function ProtectedRoute({ component: Component }: { component: React.ComponentTy
   }
 
   if (!user) {
-    window.location.href = "/";
+    window.location.href = "/login";
     return null;
   }
 
@@ -39,6 +40,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/login" component={Login} />
       <Route path="/admin">
         {() => <ProtectedRoute component={Dashboard} />}
       </Route>

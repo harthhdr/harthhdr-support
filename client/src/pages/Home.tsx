@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Loader2, MessageSquare, Phone, Mail, Shield } from "lucide-react";
 import { Link } from "wouter";
-import { getLoginUrl } from "@/const";
+
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -70,14 +70,15 @@ export default function Home() {
                   </Button>
                 </Link>
               ) : (
-                <Button
-                  variant="outline"
-                  onClick={() => window.location.href = getLoginUrl()}
-                  className="border-purple-600 text-purple-600 hover:bg-purple-50"
-                >
-                  <Shield className="ml-2 h-4 w-4" />
-                  تسجيل الدخول
-                </Button>
+                <Link href="/login">
+                  <Button
+                    variant="outline"
+                    className="border-purple-600 text-purple-600 hover:bg-purple-50"
+                  >
+                    <Shield className="ml-2 h-4 w-4" />
+                    تسجيل الدخول
+                  </Button>
+                </Link>
               )}
             </div>
           </div>
@@ -97,9 +98,9 @@ export default function Home() {
       </section>
 
       {/* Contact Form */}
-      <section className="py-8 px-4">
+      <section className="py-8 px-4 animate-fade-in">
         <div className="container mx-auto max-w-2xl">
-          <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm">
+          <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm interactive-card">
             <CardHeader>
               <CardTitle className="text-2xl text-center">إرسال شكوى أو استفسار</CardTitle>
               <CardDescription className="text-center">
@@ -172,7 +173,7 @@ export default function Home() {
 
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-lg py-6 interactive-button shadow-glow"
                   disabled={submitComplaint.isPending}
                 >
                   {submitComplaint.isPending ? (
@@ -198,7 +199,7 @@ export default function Home() {
         <div className="container mx-auto max-w-4xl">
           <h3 className="text-2xl font-bold text-center mb-8">طرق التواصل الأخرى</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="text-center hover:shadow-lg transition-shadow">
+            <Card className="text-center interactive-card">
               <CardContent className="pt-6">
                 <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Phone className="h-6 w-6 text-purple-600" />
@@ -208,7 +209,7 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
+            <Card className="text-center interactive-card">
               <CardContent className="pt-6">
                 <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Mail className="h-6 w-6 text-pink-600" />
@@ -218,7 +219,7 @@ export default function Home() {
               </CardContent>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
+            <Card className="text-center interactive-card">
               <CardContent className="pt-6">
                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                   <MessageSquare className="h-6 w-6 text-blue-600" />
