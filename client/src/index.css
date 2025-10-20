@@ -280,9 +280,9 @@
 
 
 /* إخفاء العلامة المائية - Made with Manus */
-/* تغطية الزاوية السفلية اليمنى */
+/* إضافة اسم HarthHDR 2025 في الزاوية السفلية اليمنى */
 body::after {
-  content: '';
+  content: 'HarthHDR 2025';
   position: fixed;
   bottom: 0;
   right: 0;
@@ -292,6 +292,13 @@ body::after {
   z-index: 999999;
   pointer-events: none;
   border-top-left-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
 /* محاولة إخفاء أي روابط أو أزرار تحتوي على manus */
