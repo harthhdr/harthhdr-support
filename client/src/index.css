@@ -277,3 +277,32 @@
   transform: scale(0.95);
 }
 
+
+
+/* إخفاء العلامة المائية - Made with Manus */
+/* تغطية الزاوية السفلية اليمنى */
+body::after {
+  content: '';
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 180px;
+  height: 50px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  z-index: 999999;
+  pointer-events: none;
+  border-top-left-radius: 8px;
+}
+
+/* محاولة إخفاء أي روابط أو أزرار تحتوي على manus */
+a[href*="manus."],
+button[aria-label*="manus"],
+button[aria-label*="Manus"],
+div[class*="watermark"],
+div[id*="watermark"] {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  display: none !important;
+  pointer-events: none !important;
+}
+
